@@ -1,2 +1,2 @@
-# learning-pytorch
-my journey to become a machine learning researcher.
+# learning-something-new
+my journey to become an NLP engineer and researcher.
