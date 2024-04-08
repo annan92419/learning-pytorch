@@ -1,2 +1,2 @@
 # learning-something-new
-my journey to become an NLP engineer and researcher.
+my journey to become a Deep Learning researcher.
