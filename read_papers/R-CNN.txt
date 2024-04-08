@@ -1,0 +1,24 @@
+Rich Feature Hierarchies for Accurate Object Detection and Semantic Segmentation
+EXPLAINED BY A.J
+
+MOTIVATION
+Prior to R-CNN, object detection was largely performed using methods that relied on hand-engineered features (e.g.: SIFT - extracts features invariant to image scale and rotation which are used for object matching). These approaches were limited by their inability to capture complex patterns and variations in visual data. By combining region proposals with Convolutional Neural Networks (CNNs), R-CNN aimed to selectively and effectively identify objects within images, overcoming the limitations of previous methods.
+
+STAGE ONE: REGION PROPOSAL
+The Selective Search algorithm segments the input image based on metrics such as color and then hierarchically groups the small segments according to similarity metrics (for example, segments with identical colors are grouped together) until the objects in the image are fully grouped. Through this process, the algorithm proposes approximately 2000 bounding boxes (regions) that may contain objects of interest.
+
+STAGE TWO: FEATURE EXTRACTION
+For each proposed region, the region is expanded to match the required image dimensions of the AlexNet architecture, which are 227 x 227 pixels. However, before this resizing is done, the bounding box itself is first expanded by a fixed pixel size, in this case, p = 16, in all directions equally. Each warped candidate region proposal, with dimensions of 227 x 227, is passed through the AlexNet model to extract a 4096-dimensional feature vector.
+
+STAGE THREE: SVM CLASSIFICATION AND BOUNDING BOX RECALIBRATION
+For each class, a separate SVM is trained to score the 4096-dimensional feature vector. For example, if there are 5 classes in the object detection task, there would be 5 separate SVM classifiers. Each SVM classifier is trained to distinguish whether a region proposal belongs to its respective class or not. For each region proposal that has been classified as containing an object, a regression model (bounding box regression) adjusts the bounding box coordinates (e.g., by modifying the box's center, height, and width) to better fit the object.
+
+STAGE FOUR: EVALUATION
+For each class independently, they apply a greedy non-maximum suppression to all scored regions within an image. This process rejects a region if it exhibits an intersection-over-union (IoU) overlap with a higher-scoring selected region that exceeds a predetermined threshold.
+
+LIMITATIONS
+1. Speed of the R-CNN is slow due to the need to process each region proposal (2000) through the CNN separately.
+2. Training is complex because it involved a multi-stage training that was complex. It required separate training for the CNN, SVM classifiers, and bounding box regressors, complicating the training pipeline and model optimization.
+
+IMPACT
+R-CNN inspired research into deep learning-based object detection frameworks. Its success led to the development of faster and more efficient models, such as Fast R-CNN, Faster R-CNN, and YOLO, each addressing some of the limitations of the original R-CNN model.

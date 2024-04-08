@@ -1,0 +1,172 @@
+Object Detection
+Identifying objects within an image and drawing bounding boxes around them.
+
+Semantic Segmentation
+Process of labeling each pixel in an image with a class of the object it belongs to.
+
+Convolutional Neural Networks (CNNs)
+A class of deep neural networks, most commonly applied to analyzing visual imagery.
+
+Region Proposals
+Candidate areas within an image that might contain objects.
+
+Selective Search
+A method for generating region proposals by grouping superpixels based on their similarity.
+
+Feature Vector
+A representation of an image or a part of an image as a list of numbers.
+
+SVM (Support Vector Machine)
+A type of supervised machine learning algorithm used for classification tasks.
+
+Fine-tuning
+Adjusting the weights of a pre-trained neural network to adapt it for a specific task.
+
+Pre-training
+Training a neural network on a large dataset for a task different from (but related to) the task it will eventually be used for.
+
+Bounding Box
+A rectangular box used to define the location of an object in an image.
+
+Mean Average Precision (mAP)
+A metric used to evaluate the accuracy of object detection models, considering both precision and recall.
+
+IoU (Intersection over Union)
+A measure used in object detection to evaluate how close the predicted bounding box is to the ground truth bounding box.
+
+Non-Maximum Suppression
+A technique used to ensure that each detected object is only represented once in the final output.
+
+Backpropagation
+The process of training a neural network, where gradients are calculated and weights are updated in reverse order from output to input.
+
+ReLU (Rectified Linear Unit)
+A non-linear activation function used in neural networks, max(0, x).
+
+Dropout
+A regularization technique where randomly selected neurons are ignored during training, helping to prevent overfitting.
+
+Overfitting
+A modeling error that occurs when a function is too closely fit to a limited set of data points, reducing its generalization to new data.
+
+Stochastic Gradient Descent (SGD)
+An optimization algorithm used to minimize the loss function by iteratively moving towards the minimum.
+
+Learning Rate
+A hyperparameter that controls how much to change the model in response to the estimated error each time the model weights are updated.
+
+Loss Function
+A method of evaluating how well the algorithm models the given data.
+
+Feature Extraction
+The process of using algorithms to identify and use the most informative parts of the data for analysis, classification, etc.
+
+Data Augmentation
+Techniques used to increase the amount of data by adding slightly modified copies or creating synthetic data from existing data.
+
+Transfer Learning
+Leveraging a pre-trained model for a task different from the one it was originally trained for.
+
+Ground Truth
+The accurate data provided for training machine learning models.
+
+Classification Layer
+The last layer in a CNN, used for predicting the class of the input data.
+
+Pooling Layer
+A neural network layer that reduces the spatial size of the representation, reducing the number of parameters and computation in the network.
+
+Fully Connected Layer
+A layer in a neural network where all neurons are connected to all neurons in the previous layer.
+
+Softmax Function
+A function that converts the output scores from the model into probabilities, e_i / (sum e_j) for j.
+
+Batch Size
+The number of training examples utilized in one iteration.
+
+Epoch
+One forward pass and one backward pass of all the training examples.
+
+Validation Set
+A set of data used to provide an unbiased evaluation of a model fit on the training dataset.
+
+Test Set
+The data used to test the model after the model has gone through initial vetting by the validation set.
+
+Hyperparameters
+The settings or configurations that need to be specified prior to training a model.
+
+Dimensionality Reduction
+The process of reducing the number of random variables under consideration.
+
+Feature Learning
+Techniques that allow a system to automatically discover the representations needed for feature detection or classification from raw data.
+
+Regularization
+Techniques used to prevent overfitting by adding information or constraints to the model.
+
+Gradient Descent
+An optimization algorithm used to minimize some function by iteratively moving in the direction of steepest descent.
+
+Activation Function
+A function applied at each node in a neural network, deciding whether it should be activated or not.
+
+Weight Initialization
+The method of initially setting the weights of a neural network prior to training.
+
+Bias
+A value that allows the model to fit best with the given data.
+
+Anchor Boxes
+Predefined boxes of various ratios and scales that serve as references at different positions across the image to detect objects of various shapes and sizes.
+
+Attention Mechanisms
+Techniques that allow models to focus on specific parts of the input for prediction tasks, improving the relevance of the model's output.
+
+Backbone Network
+The initial part of a deep learning model which is responsible for extracting features from input data, usually a pre-trained CNN.
+
+Batch Normalization
+A technique to standardize the inputs to a layer within a neural network, helping to stabilize and speed up training.
+
+Bounding Box Regression
+A method to adjust the coordinates of a predicted bounding box to better match the ground truth bounding box.
+
+Channel
+In the context of images, a channel is a component of the image data (e.g., red, green, blue) that holds the intensity information for a specific color.
+
+Convolutional Layer
+A layer in a CNN that applies a number of filters to the input to create feature maps.
+
+Deep Feature Map
+The output of a convolutional layer, representing high-level features of the input image.
+
+Ensemble Methods
+Techniques that combine multiple models to improve the robustness and accuracy of predictions.
+
+Feature Pyramid Network (FPN)
+A neural network architecture that uses a pyramid of features from multiple levels in the network to detect objects at different scales.
+
+Fully Convolutional Network (FCN)
+A neural network architecture where all layers are convolutional, enabling it to take input of any size and outputting segmented images.
+
+Intersection over Union (IoU)
+A metric used to evaluate the accuracy of an object detector on a particular dataset by measuring the overlap between the predicted and ground truth bounding boxes.
+
+Object Proposal
+A method for identifying potential objects within an image by generating bounding boxes that are likely to contain objects.
+
+Precision-Recall Curve
+A graph that shows the trade-off between precision and recall for different thresholds. A high area under the curve represents both high recall and high precision.
+
+Region Proposal Network (RPN)
+A network that proposes candidate object bounding boxes.
+
+Semantic Segmentation
+The process of assigning a label to every pixel in an image such that pixels with the same label share certain characteristics.
+
+
+
+
+
