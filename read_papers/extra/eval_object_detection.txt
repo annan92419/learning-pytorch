@@ -1,0 +1,31 @@
+TITLE: Understanding IoU and NMS by A.J
+SUBTITLE: A simple implementation of Intersection over Union (IoU) and Non-Maximum Suppression (NMS) for Accurate Object Detection in PyTorch for easy understanding
+
+INTRODUCTION
+The task of object detection involves localizing and classifying all objects in a visual domain, such as an image or video. Earlier object detection approaches, like R-CNN and Faster R-CNN, utilize the concept of region proposal from the images or feature maps to precisely predict which object the region contains and the extent of the object in the visual domain. The object in the visual domain can be any label in the dataset or a background (any object not considered a label), and the extent of the object is represented by the x, y coordinates of the object in the visual domain. Historically, these coordinates are simplified to the top-left (x1, y1) and bottom-right (x2, y2) values. A challenge with region proposal methods is that they may propose more regions (for example, R-CNN's selective search algorithm proposes approximately 2000 regions) than the number of actual objects of interest in the visual domain. So, how do we evaluate the quality of these proposed boxes and determine which box captures the object of interest most accurately?
+There are two common methods to evaluate the task of object detection:
+- Intersection over Union (IoU)
+- Non-Maximum Suppression (NMS)
+These techniques are used to refine the accuracy of object localization and classification in object detection tasks.
+
+
+Intersection over Union (IoU)
+As the name suggests, the IoU measures the similarity between any two bounding boxes by calculating the ratio of their intersection to their union. This metric helps quantify the likelihood that two boxes contain the same object of interest or, more broadly, capture overlapping areas within an image. IoU also reflects the uniqueness of bounding boxes. A smaller IoU between two boxes indicates that they cover distinct regions of an image or capture different objects. Essentially, a higher IoU signifies greater overlap, indicating that the bounding boxes roughly capture the same object.
+
+
+Non-Maximum Suppression (NMS)
+When using, say, Faster R-CNN, how do we determine which proposed anchor box captures the object of interest most accurately? NMS is pretty much the judge of this. NMS is a metric used to eliminate redundant boxes and retain only unique boxes based on their Intersection over Union (IoU) and objectness score. The objectness score reflects the model's confidence that a bounded area contains an object of interest, regardless of its class.
+Here's how NMS works:
+1. NMS starts by selecting the box with the highest objectness score.
+2. It then estimates the IoU of this box with other predicted boxes that have lower objectness scores.
+3. Boxes with IoU greater than a specified threshold (e.g., 0.7) are eliminated, retaining only the most relevant and distinct bounding boxes.
+In summary, NMS assists in refining the selection of anchor boxes by prioritizing those with high objectness scores and removing redundant or overlapping predictions.
+
+
+
+
+
+
+
+
+
