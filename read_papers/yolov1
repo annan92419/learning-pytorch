@@ -1,0 +1,32 @@
+INTRODUCTION
+The prior work on object detection repurposes classifiers to perform detection. YOLO frames object detection as a regression problem, predicting spatially separated bounding boxes and associated class probabilities. The main innovation of YOLO is that it moves away from the disjoint (two-stage) object detection idea to a single-stage approach. Consequently, this makes YOLO trainable in one go.
+
+
+UNIFIED DETECTION:
+Unlike methods such as R-CNN, which examine proposed regions of the image for object detection, YOLO analyzes the entire image. This allows the network to consider the full context of the image and all its objects simultaneously (global reasoning). Given an image, the YOLO network divides it into S x S (disjoint) grids. When an object's center falls within a specific grid cell, that cell is responsible for predicting the bounding box parameters (x, y, width, height, and objectness score) relative to its own location.
+
+Here's how the Unified network works (given an image):
+
+1. Grid division: The input image is divided into an S x S grid. In this case, it is a 7x7 grid - 7 rows and 7 columns.
+
+2. Bounding box prediction: Each grid cell predicts B (for simplicity, let's say B=2) bounding boxes. These bounding boxes are parameterized by their center coordinates (x, y), and each bounding box's width and height (w, h) are determined with respect to the entire image. The (x, y, w, h) coordinates define the location and size of each bounding box within a grid. The bounding box also predicts confidence scores indicating the model's confidence that the box contains an object.
+
+3. Conditional Class Probabilities: Along with the bounding box predictions, the model also predicts class probabilities, denoted as C, for each grid cell. These probabilities represent the likelihood of each class being present within the grid cell. Class probabilities are determined based on the entire grid cell rather than individual bounding boxes within the cell. Note: At test time, the conditional class probabilities and the individual box confidence scores give us class-specific confidence scores for each box. These scores encode both the probability of that class appearing in the box and how well the predicted box fits the object.
+
+4. Object Location: "If the center of an object falls into a grid cell, that grid cell
+is responsible for detecting that object." How is this accomplished? Well, the model determines the center. However, I hypothesize that it calculates the midpoint by considering the extreme edges of the bounding boxes for each class within each grid cell. The grid cell containing this midpoint is then responsible for detecting the object. Please take this with a grain of salt.
+
+5. Tensor Structure: The final prediction tensor has dimensions SxSx(B*5+C). From the above, let's say S=7, B=2, and (for the PASCAL VOC dataset) C=20. Therefore, the final dimension is 7x7x30. The 30 values per grid cell consist of: (1) Bounding box coordinates (x, y, w, h) and confidence scores, totaling 5 values per bounding box (5x2 = 10 values). (2) Class probabilities: If there are 20 classes, then there will be 20 probabilities per grid cell. In total: 10 (bounding box predictions) + 20 (class probabilities) = 30 values per cell.
+
+
+EVALUATION 
+" The grid design enforces spatial diversity in the bounding box predictions. Often it is clear which grid cell an object falls in to and the network only predicts one box for each object. However, some large objects or objects near the border of multiple cells can be well localized by multiple cells. Non-maximal suppression can be used to fix these multiple detections. "
+
+
+LIMITATION
+While it can quickly identify objects in images, it struggles to precisely localize some objects, especially small ones. This is due to a constraint on the number of bounding boxes to predict, resulting in some objects in the image not being identified, particularly small ones.
+
+
+IMPACT
+1. Real-time object detection and unified pipeline. YOLO v1 introduced a single-stage object detection approach capable of detecting objects in images in real-time.
+2. YOLO v1 inspired subsequent iterations of the YOLO architecture, resulting in further improvements in accuracy, speed, and efficiency.
