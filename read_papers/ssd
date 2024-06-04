@@ -1,0 +1,68 @@
+INTRODUCTION 
+
+The Single Shot MultiBox Detector (SSD) is a single-stage object detection network that innovatively detects objects of various sizes using feature maps of different resolutions. SSD demonstrates superior performance compared to YOLOv1, even when using smaller input images of 300 x 300 pixels (in contrast to YOLOv1's 448 x 448 pixels).
+
+
+
+
+
+THE SINGLE SHOT DETECTOR (SSD)
+
+SSD adopts the idea from YOLOv1 by discarding the region proposal network utilized by older object detection methods like R-CNN. The architecture consists of two main components:
+
+1. Backbone Network:
+The backbone network comprises convolutional layers without the fully connected classification layers. It extracts rich features from the input image. Common examples of backbone networks include VGG, ResNet, and AlexNet (used in earlier object detection works).
+
+2. Custom Convolutional Layers:
+(A) Multi-Scale Feature Maps for Detection:
+After the backbone network, a series of convolutional layers are stacked on top. These custom layers progressively decrease in size and enable predictions at multiple scales.
+
+(B) Convolutional Predictors for Detection:
+For each added layer, a 3x3 kernel is applied in a convolutional manner to produce class probabilities and adjustments to default boxes. Default boxes are similar to the bounding (anchor) boxes in R-CNN, but they are placed in each feature map cell. For example, if an added layer has dimensions 7x7xC (where C is the number of channels), the layer will have 7*7=49 cells, and each cell will contain multiple boxes of different shapes and sizes (e.g., four default boxes, see Fig 1(c)).
+
+
+
+
+Breakdown of How the Network Works Using a 7x7xC Feature Map:
+- The feature map has a spatial dimension of 7x7, meaning it is a grid with 49 cells (7 rows and 7 columns).
+
+- In each cell in the 7x7 grid, a set of default bounding boxes are placed. In Fig 1(b) and (c), four default boxes of different scales and ratios are shown in two cells. The idea is to capture various object shapes and sizes in the feature map.
+
+- SSD uses a small convolutional filter to slide across all the cells in the feature map. Assume there are four default boxes per cell. For each default box, the network predicts the probability of each class and four coordinate values to adjust the size of the default box to better fit the detected object, if any. If there are 20 object classes (e.g., from the PASCAL VOC dataset), there would be 21 scores (20 classes plus 1 for the background) at each location. 
+
+- Overral predictions at each cell
+Class probabilities or category scores: 84 (if 4 default boxes and 21 classes)
+Box adjustments or offsets: 16 (if 4 default boxes)
+
+- Overral predictions for the 7x7 feature map
+Class probabilities or category scores: 49 * 84 = 4116
+Box adjustments or offsets: 49 * 16 = 784
+
+- Note: This process is repeated for all custom layers stacked on top of the backbone network, allowing SSD to detect objects at multiple scales efficiently.
+
+
+
+
+
+EVALUATION
+
+The highest class category score for a cell determines the class for that cell. Simultaneously, the box adjustments are added to the coordinates of the default boxes to obtain the final bounding boxes. When an object of interest spans multiple locations (cells) in a feature map, the SSD architecture addresses this through a combination of overlapping default bounding boxes and post-processing techniques like Non-Maximum Suppression (NMS). Specifically, NMS helps refine the final set of default boxes. It removes overlapping, redundant boxes (those with Intersection over Union (IoU) above a predefined threshold) and keeps the most confident ones. NMS then merges the remaining boxes that cover the object, using the coordinates of the most confident boxes to form a single, precise bounding box for each detected object.
+
+
+
+
+
+LIMITATION
+1. SSD has issues detecting small objects when using input images of lower resolution. As the network downsamples the input image through successive layers, fine details about small objects can be lost.
+
+2. SSD uses a fixed set of default bounding boxes with predefined aspect ratios and scales, which might not always align perfectly with the actual objects in the images.
+
+
+
+
+
+IMPACT
+
+1. SSD's single-stage approach allows for real-time object detection, making it suitable for applications where speed is critical.
+
+2. SSD inspired more advanced models like YOLOv2 and YOLOv3, which incorporate ideas from SSD while addressing some of its limitations.
