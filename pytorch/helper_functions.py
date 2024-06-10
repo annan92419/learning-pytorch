@@ -60,15 +60,20 @@ def plot_decision_boundary(model: torch.nn.Module, X: torch.Tensor, y: torch.Ten
     # Test for multi-class or binary and adjust logits to prediction labels
     if len(torch.unique(y)) > 2:
         y_pred = torch.softmax(y_logits, dim=1).argmax(dim=1)  # mutli-class
+        # Reshape preds and plot
+        y_pred = y_pred.reshape(xx.shape).detach().numpy()
+        plt.contourf(xx, yy, y_pred, cmap=plt.cm.Accent, alpha=0.7)
+        plt.scatter(X[:, 0], X[:, 1], c=y, s=40, cmap=plt.cm.Accent)
+        plt.xlim(xx.min(), xx.max())
+        plt.ylim(yy.min(), yy.max())
     else:
         y_pred = torch.round(torch.sigmoid(y_logits))  # binary
-
-    # Reshape preds and plot
-    y_pred = y_pred.reshape(xx.shape).detach().numpy()
-    plt.contourf(xx, yy, y_pred, cmap=plt.cm.RdYlBu, alpha=0.7)
-    plt.scatter(X[:, 0], X[:, 1], c=y, s=40, cmap=plt.cm.RdYlBu)
-    plt.xlim(xx.min(), xx.max())
-    plt.ylim(yy.min(), yy.max())
+        # Reshape preds and plot
+        y_pred = y_pred.reshape(xx.shape).detach().numpy()
+        plt.contourf(xx, yy, y_pred, cmap=plt.cm.RdYlBu, alpha=0.7)
+        plt.scatter(X[:, 0], X[:, 1], c=y, s=40, cmap=plt.cm.RdYlBu)
+        plt.xlim(xx.min(), xx.max())
+        plt.ylim(yy.min(), yy.max())
 
 
 # Plot linear data or training and test and predictions (optional)
